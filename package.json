@@ -1,6 +1,6 @@
 {
   "name": "await-event-emitter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "await events library like EventEmitter",
   "main": "index.es5.js",
   "jsnext:main": "index.js",
