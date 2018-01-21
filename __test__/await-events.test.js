@@ -4,7 +4,7 @@
  * @date: 2018/1/21
  * @description:
  */
-const AwaitEventEmitter = require('../index.es5')
+const AwaitEventEmitter = require('../index')
 
 function tick(func) {
   return new Promise(resolve => {
