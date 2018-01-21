@@ -4,7 +4,7 @@
  * @date: 2017/11/1
  * @description:
  */
-const TYPE_KEYNAME = typeof Symbol === 'function' ? Symbol('--[[await-events]]--') : '--[[await-events]]--'
+const TYPE_KEYNAME = typeof Symbol === 'function' ? Symbol('--[[await-event-emitter]]--') : '--[[await-event-emitter]]--'
 
 function assertType(type) {
   if (typeof type !== 'string' && typeof type !== 'symbol') {

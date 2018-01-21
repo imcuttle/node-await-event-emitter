@@ -1,5 +1,5 @@
 {
-  "name": "await-events",
+  "name": "await-event-emitter",
   "version": "1.0.1",
   "description": "await events library like EventEmitter",
   "main": "index.es5.js",
@@ -13,7 +13,7 @@
   },
   "keywords": [
     "imcuttle",
-    "node-await-events"
+    "node-await-event-emitter"
   ],
   "author": "",
   "license": "MIT",

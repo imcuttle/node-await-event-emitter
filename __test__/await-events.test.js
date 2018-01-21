@@ -1,5 +1,5 @@
 /**
- * @file: await-events.test.js
+ * @file: await-event-emitter.test.js
  * @author: Cuttle Cong
  * @date: 2018/1/21
  * @description:
@@ -15,7 +15,7 @@ function tick(func) {
   })
 }
 
-describe('await-events', async () => {
+describe('await-event-emitter', async () => {
 
   it('on', async () => {
     const emitter = new AwaitEventEmitter()
