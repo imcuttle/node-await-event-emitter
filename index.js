@@ -4,6 +4,7 @@
  * @date: 2017/11/1
  * @description:
  */
+const isPromise= require('is-promise')
 const TYPE_KEYNAME = typeof Symbol === 'function' ? Symbol('--[[await-event-emitter]]--') : '--[[await-event-emitter]]--'
 
 function assertType(type) {
@@ -94,7 +95,10 @@ async function emit(type, ...args) {
   if (listeners && listeners.length) {
     for(let i = 0; i < listeners.length; i++) {
       const event = listeners[i]
-      await event(...args)
+      const rlt = event(...args)
+      if (isPromise(rlt)) {
+        await rlt
+      }
       if (this._events[type][i][TYPE_KEYNAME] === 'once') {
         this.removeListener(type, event)
       }

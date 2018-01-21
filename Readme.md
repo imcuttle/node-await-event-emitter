@@ -21,7 +21,8 @@ emitter
   })
   .emit('event', '...arguments')
 ```
-The listener must be **synchronous**, that is way i wrote it.
+The listener must be **synchronous**, that is way i wrote it.  
+And await-event-emitter support synchronous emitter magically :smile:
 
 ## Installation
 ```bash
