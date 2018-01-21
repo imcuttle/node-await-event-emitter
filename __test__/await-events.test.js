@@ -67,16 +67,16 @@ describe('await-event-emitter', async () => {
   it('sync!', () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    const listener = (a, b) => {
+    const listener = async (a, b) => {
       flag = b
     }
-    emitter.addListener('event', (a, b) => {
+    emitter.addListener('event', async (a, b) => {
       flag = b + 1
     })
     emitter.prependListener('event', listener)
-    emitter.emit('event', 2, 4)
-    emitter.emit('event', 2, 6)
-    emitter.emit('event', 2, 9)
+    emitter.emitSync('event', 2, 4)
+    emitter.emitSync('event', 2, 6)
+    emitter.emitSync('event', 2, 9)
 
     expect(flag).toEqual(10)
     expect(emitter.listeners('event').length).toEqual(2)

@@ -52,6 +52,9 @@ async function run() {
   // NOTE: it's important to `await` the reset process
   await emitter.emit('event', '...arguments')
   await emitter.emit('event', 'again')
+
+  // support emit it synchronously
+  emitter.emitSync('event', 'again')
 }
 
 run()
@@ -70,8 +73,11 @@ run()
 - `removeListener(event, listener)` : AwaitEventEmitter    
   alias: `off`
 - `listeners(event)` : []
-- `emit(event, ...args)` : boolean
-
+- `emit(event, ...args)` : Promise.resolve(boolean)  
+  emit listeners asynchronously, we recommended await it resolved the result
+- `emitSync(event, ...args)` : boolean
+  emit listeners synchronously
+  
 ## Test
 ```bash
 npm test

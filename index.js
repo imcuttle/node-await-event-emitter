@@ -108,12 +108,30 @@ async function emit(type, ...args) {
   return false
 }
 
+function emitSync(type, ...args) {
+  assertType(type)
+  const listeners = this.listeners(type)
+  if (listeners && listeners.length) {
+    for(let i = 0; i < listeners.length; i++) {
+      const event = listeners[i]
+      event(...args)
+
+      if (this._events[type][i][TYPE_KEYNAME] === 'once') {
+        this.removeListener(type, event)
+      }
+    }
+    return true
+  }
+  return false
+}
+
 AwaitEventEmitter.prototype.on = AwaitEventEmitter.prototype.addListener = on
 AwaitEventEmitter.prototype.once = once
 AwaitEventEmitter.prototype.prependListener = prepend
 AwaitEventEmitter.prototype.prependOnceListener = prependOnce
 AwaitEventEmitter.prototype.off = AwaitEventEmitter.prototype.removeListener = removeListener
 AwaitEventEmitter.prototype.emit = emit
+AwaitEventEmitter.prototype.emitSync = emitSync
 AwaitEventEmitter.prototype.listeners = listeners
 
 if (typeof module !== 'undefined') {
