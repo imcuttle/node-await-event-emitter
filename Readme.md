@@ -38,7 +38,7 @@ const tick = () =>
     setTimeout(() => {
       console.log('tick')
       resolve()
-    })
+    }, 1000)
   })
 
 emitter
