@@ -5,6 +5,9 @@
   "main": "index.es5.js",
   "jsnext:main": "index.js",
   "module": "index.js",
+  "files": [
+    "index.es5.js"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "npm run build -- --watch",
@@ -25,10 +28,10 @@
     "jest": "^22.1.4",
     "rollup": "^0.54.1",
     "rollup-plugin-babel": "^3.0.3",
-    "rollup-plugin-commonjs": "^8.2.6"
+    "rollup-plugin-commonjs": "^8.2.6",
+    "babel-plugin-external-helpers": "^6.22.0"
   },
   "dependencies": {
-    "babel-plugin-external-helpers": "^6.22.0",
     "babel-runtime": "^6.26.0"
   },
   "jest": {
@@ -38,5 +41,13 @@
       "text",
       "lcov"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imcuttle/node-await-events.git"
+  },
+  "bugs": {
+    "url": "https://github.com/imcuttle/node-await-events/issues"
+  },
+  "homepage": "https://github.com/imcuttle/node-await-events#readme"
 }

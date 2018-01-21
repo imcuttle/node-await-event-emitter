@@ -28,7 +28,7 @@ describe('await-event-emitter', async () => {
     emitter.emit('event', 2, 6)
 
     expect(flag).toEqual(6)
-    expect(emitter._events['event'][0]).toEqual(listener)
+    expect(emitter._events['event'][0].fn).toEqual(listener)
   })
 
   it('once', async () => {
@@ -75,6 +75,7 @@ describe('await-event-emitter', async () => {
            .prependOnceListener('event', listener)
            .removeListener('event', listener)
     expect(emitter.listeners('event').length).toEqual(0)
+
 
     const listenerA = () => {}
     emitter.addListener('event', listener)

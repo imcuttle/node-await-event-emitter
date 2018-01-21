@@ -19,12 +19,16 @@ function assertFn(fn) {
 }
 
 function alwaysListener(fn) {
-  fn[TYPE_KEYNAME] = 'always'
-  return fn
+  return {
+    [TYPE_KEYNAME]: 'always',
+    fn
+  }
 }
 function onceListener(fn) {
-  fn[TYPE_KEYNAME] = 'once'
-  return fn
+  return {
+    [TYPE_KEYNAME]: 'once',
+    fn
+  }
 }
 
 function AwaitEventEmitter() {
@@ -56,7 +60,7 @@ function prependOnce(type, fn) {
 }
 
 function listeners(type) {
-  return this._events[type] || []
+  return (this._events[type] || []).map(x => x.fn)
 }
 
 function once(type, fn) {
@@ -75,6 +79,7 @@ function removeListener(type, nullOrFn) {
     let index, found = false
     while ((index = listeners.indexOf(nullOrFn)) >= 0) {
       listeners.splice(index, 1)
+      this._events[type].splice(index, 1)
       found = true
     }
     return found
@@ -90,7 +95,7 @@ async function emit(type, ...args) {
     for(let i = 0; i < listeners.length; i++) {
       const event = listeners[i]
       await event(...args)
-      if (event[TYPE_KEYNAME] === 'once') {
+      if (this._events[type][i][TYPE_KEYNAME] === 'once') {
         this.removeListener(type, event)
       }
     }

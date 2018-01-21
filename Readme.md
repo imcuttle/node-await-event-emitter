@@ -56,6 +56,21 @@ async function run() {
 run()
 ```
 
+## API
+
+### Class `AwaitEventEmitter`
+- `addListener(event, listener)` : AwaitEventEmitter   
+  alias: `on`
+- `once(event, listener)` 
+- `prependListener(event, listener)` : AwaitEventEmitter  
+  alias: `prepend`
+- `prependOnceListener(event, listener)` : AwaitEventEmitter  
+  alias: `prependOnce`
+- `removeListener(event, listener)` : AwaitEventEmitter    
+  alias: `off`
+- `listeners(event)` : []
+- `emit(event, ...args)` : boolean
+
 ## Test
 ```bash
 npm test
