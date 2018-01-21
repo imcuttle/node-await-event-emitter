@@ -1,10 +1,11 @@
 # await-event-emitter
-await events library like EventEmitter
+
+Await events library like EventEmitter
 
 [![build status](https://img.shields.io/travis/imcuttle/node-await-event-emitter/master.svg?style=flat-square)](https://travis-ci.org/imcuttle/node-await-event-emitter)
 [![Test coverage](https://img.shields.io/codecov/c/github/imcuttle/node-await-event-emitter.svg?style=flat-square)](https://codecov.io/github/imcuttle/node-await-event-emitter?branch=master)
-[![NPM version](https://img.shields.io/npm/v/node-await-event-emitter.svg?style=flat-square)](https://www.npmjs.com/package/node-await-event-emitter)
-[![NPM Downloads](https://img.shields.io/npm/dm/node-await-event-emitter.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/node-await-event-emitter)
+[![NPM version](https://img.shields.io/npm/v/await-event-emitter.svg?style=flat-square)](https://www.npmjs.com/package/await-event-emitter)
+[![NPM Downloads](https://img.shields.io/npm/dm/await-event-emitter.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/await-event-emitter)
 
 ## Why?
 
