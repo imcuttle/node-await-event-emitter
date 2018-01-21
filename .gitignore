@@ -1,0 +1,7 @@
+.idea/
+~*
+dist/
+node_modules/
+coverage/
+
+index.es5.js

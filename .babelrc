@@ -1,0 +1,49 @@
+{
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": {
+              "node": "6",
+              "browsers": ["ie>=9"]
+            },
+            "loose": true,
+            "useBuiltIns": true
+          }
+        ],
+      ],
+    }
+  },
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "node": "6",
+          "browsers": ["ie>=9"]
+        },
+        "loose": true,
+        "modules": false,
+        "useBuiltIns": true
+      }
+    ],
+    // "react"
+  ],
+  "plugins": [
+    "external-helpers",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    [
+      "transform-runtime",
+      {
+        "polyfill": false,
+        "runtimeHelpers": true,
+        "regenerator": true
+      }
+    ]
+  ],
+  "ignore": [
+  ]
+}

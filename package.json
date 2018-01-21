@@ -1,0 +1,33 @@
+{
+  "name": "await-events",
+  "version": "1.0.0",
+  "description": "await events library like EventEmitter",
+  "main": "index.es5.js",
+  "jsnext:main": "index.js",
+  "module": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "npm run build -- --watch",
+    "test": "jest --coverage",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "imcuttle",
+    "node-await-events"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.1.4",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^8.2.6"
+  },
+  "dependencies": {
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-runtime": "^6.26.0"
+  }
+}
