@@ -183,6 +183,15 @@ describe('await-event-emitter', async () => {
     await emitter.emit('event', 2, 4)
     expect(flag).toEqual(4)
   })
+
+  it('once remove', async function () {
+    const emitter = new AwaitEventEmitter()
+
+    emitter.once('aa', function () {})
+    emitter.once('aa', function () {})
+    emitter.once('aa', function () {})
+    await emitter.emit('aa')
+  })
 })
 
 

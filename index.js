@@ -92,6 +92,8 @@ function removeListener(type, nullOrFn) {
 async function emit(type, ...args) {
   assertType(type)
   const listeners = this.listeners(type)
+
+  const onceListeners = []
   if (listeners && listeners.length) {
     for(let i = 0; i < listeners.length; i++) {
       const event = listeners[i]
@@ -100,9 +102,13 @@ async function emit(type, ...args) {
         await rlt
       }
       if (this._events[type][i][TYPE_KEYNAME] === 'once') {
-        this.removeListener(type, event)
+        onceListeners.push(event)
       }
     }
+    onceListeners.forEach(event =>
+      this.removeListener(type, event)
+    )
+
     return true
   }
   return false
@@ -111,15 +117,20 @@ async function emit(type, ...args) {
 function emitSync(type, ...args) {
   assertType(type)
   const listeners = this.listeners(type)
+  const onceListeners = []
   if (listeners && listeners.length) {
     for(let i = 0; i < listeners.length; i++) {
       const event = listeners[i]
       event(...args)
 
       if (this._events[type][i][TYPE_KEYNAME] === 'once') {
-        this.removeListener(type, event)
+        onceListeners.push(event)
       }
     }
+    onceListeners.forEach(event =>
+      this.removeListener(type, event)
+    )
+
     return true
   }
   return false
