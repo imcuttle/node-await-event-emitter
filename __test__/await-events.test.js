@@ -187,7 +187,8 @@ describe('await-event-emitter', async () => {
   it('once remove', async function () {
     const emitter = new AwaitEventEmitter()
 
-    emitter.once('aa', function () {})
+    emitter.once('aa', function () {
+    })
     emitter.once('aa', function () {})
     emitter.once('aa', function () {})
     await emitter.emit('aa')

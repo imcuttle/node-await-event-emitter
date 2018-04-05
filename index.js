@@ -97,7 +97,7 @@ async function emit(type, ...args) {
   if (listeners && listeners.length) {
     for(let i = 0; i < listeners.length; i++) {
       const event = listeners[i]
-      const rlt = event(...args)
+      const rlt = event.apply(this, args)
       if (isPromise(rlt)) {
         await rlt
       }
@@ -121,7 +121,7 @@ function emitSync(type, ...args) {
   if (listeners && listeners.length) {
     for(let i = 0; i < listeners.length; i++) {
       const event = listeners[i]
-      event(...args)
+      event.apply(this, args)
 
       if (this._events[type][i][TYPE_KEYNAME] === 'once') {
         onceListeners.push(event)
