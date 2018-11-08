@@ -5,6 +5,7 @@
         [
           "env",
           {
+            "exclude": ["transform-regenerator"],
             "targets": {
               "node": "6",
               "browsers": ["ie>=9"]
@@ -24,6 +25,7 @@
           "node": "6",
           "browsers": ["ie>=9"]
         },
+        "exclude": ["transform-regenerator"],
         "loose": true,
         "modules": false,
         "useBuiltIns": true
@@ -32,17 +34,8 @@
     // "react"
   ],
   "plugins": [
-    "external-helpers",
     "transform-class-properties",
-    "transform-object-rest-spread",
-    [
-      "transform-runtime",
-      {
-        "polyfill": false,
-        "runtimeHelpers": true,
-        "regenerator": true
-      }
-    ]
+    "transform-object-rest-spread"
   ],
   "ignore": [
   ]
