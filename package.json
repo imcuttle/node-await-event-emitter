@@ -2,7 +2,7 @@
   "name": "node-await-event-emitter",
   "version": "1.2.0",
   "description": "Await events library like EventEmitter",
-  "author": "余聪 <yucong06@meituan.com>",
+  "author": "imcuttle <imcuttle@163.com>",
   "scripts": {
     "test": "npx jest",
     "test:watch": "npm test -- --watch",
@@ -34,7 +34,7 @@
     "src"
   ],
   "keywords": [
-    "余聪",
+    "imcuttle",
     "node",
     "await",
     "event",
@@ -44,7 +44,7 @@
   "main": "lib",
   "types": "types",
   "license": "MIT",
-  "repository": "余聪/node-await-event-emitter",
+  "repository": "imcuttle/node-await-event-emitter",
   "module": "es",
   "jest": {
     "transform": {

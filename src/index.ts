@@ -1,6 +1,6 @@
 /**
  * Await events library like EventEmitter
- * @author 余聪
+ * @author imcuttle
  */
 
 const isPromise = require('is-promise')
