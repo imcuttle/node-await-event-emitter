@@ -13,6 +13,8 @@ function assertType(type) {
   }
 }
 
+type SymbolKey = string | any
+
 function assertFn(fn) {
   if (typeof fn !== 'function') {
     throw new TypeError('fn is not type of Function!')
@@ -34,22 +36,22 @@ function onceListener(fn) {
 }
 
 class AwaitEventEmitter {
-  _events: Record<any, Array<{ fn: Function }>> = {}
+  _events: Record<any | SymbolKey, Array<{ fn: Function }>> = {}
 
-  addListener(type: string, fn: Function) {
+  addListener(type: SymbolKey, fn: Function) {
     return this.on(type, fn)
   }
-  on(type: string, fn: Function) {
+  on(type: SymbolKey, fn: Function) {
     assertType(type)
     assertFn(fn)
     this._events[type] = this._events[type] || []
     this._events[type].push(alwaysListener(fn))
     return this
   }
-  prependListener(type: string, fn: Function) {
+  prependListener(type: SymbolKey, fn: Function) {
     return this.prepend(type, fn)
   }
-  prepend(type: string, fn: Function) {
+  prepend(type: SymbolKey, fn: Function) {
     assertType(type)
     assertFn(fn)
     this._events[type] = this._events[type] || []
@@ -57,21 +59,21 @@ class AwaitEventEmitter {
     return this
   }
 
-  prependOnceListener(type: string, fn: Function) {
+  prependOnceListener(type: SymbolKey, fn: Function) {
     return this.prependOnce(type, fn)
   }
-  prependOnce(type: string, fn: Function) {
+  prependOnce(type: SymbolKey, fn: Function) {
     assertType(type)
     assertFn(fn)
     this._events[type] = this._events[type] || []
     this._events[type].unshift(onceListener(fn))
     return this
   }
-  listeners(type: string) {
+  listeners(type: SymbolKey) {
     return (this._events[type] || []).map((x) => x.fn)
   }
 
-  once(type: string, fn: Function) {
+  once(type: SymbolKey, fn: Function) {
     assertType(type)
     assertFn(fn)
     this._events[type] = this._events[type] || []
@@ -83,10 +85,10 @@ class AwaitEventEmitter {
     this._events = {}
   }
 
-  off(type: string, nullOrFn?: Function) {
+  off(type: SymbolKey, nullOrFn?: Function) {
     return this.removeListener(type, nullOrFn)
   }
-  removeListener(type: string, nullOrFn?: Function) {
+  removeListener(type: SymbolKey, nullOrFn?: Function) {
     assertType(type)
 
     const listeners = this.listeners(type)
@@ -105,7 +107,7 @@ class AwaitEventEmitter {
     }
   }
 
-  async emit(type: string, ...args: unknown[]) {
+  async emit(type: SymbolKey, ...args: unknown[]) {
     assertType(type)
     const listeners = this.listeners(type)
 
@@ -128,7 +130,7 @@ class AwaitEventEmitter {
     return false
   }
 
-  emitSync(type: string, ...args: unknown[]) {
+  emitSync(type: SymbolKey, ...args: unknown[]) {
     assertType(type)
     const listeners = this.listeners(type)
     const onceListeners = []
