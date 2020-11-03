@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "sourceMap": false,
+    "declaration": false,
+    "moduleResolution": "node",
+    "esModuleInterop": false,
+    "outDir": "types"
+  },
+  "include": ["./src"],
+  "exclude": ["node_modules", "test", "__tests__"]
+}
