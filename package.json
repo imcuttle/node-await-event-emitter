@@ -1,5 +1,5 @@
 {
-  "name": "node-await-event-emitter",
+  "name": "await-event-emitter",
   "version": "2.0.1",
   "description": "Await events library like EventEmitter",
   "author": "imcuttle <imcuttle@163.com>",
