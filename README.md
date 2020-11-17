@@ -35,7 +35,7 @@ npm install --save await-event-emitter
 ## Usage
 
 ```javascript
-const AwaitEventEmitter = require('await-event-emitter')
+const AwaitEventEmitter = require('await-event-emitter').default
 
 const emitter = new AwaitEventEmitter()
 const tick = () =>
