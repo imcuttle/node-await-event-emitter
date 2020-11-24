@@ -119,7 +119,7 @@ class AwaitEventEmitter {
         if (isPromise(rlt)) {
           await rlt
         }
-        if (this._events[type][i][TYPE_KEY_NAME] === 'once') {
+        if (this._events[type] && this._events[type][i] && this._events[type][i][TYPE_KEY_NAME] === 'once') {
           onceListeners.push(event)
         }
       }
@@ -139,7 +139,7 @@ class AwaitEventEmitter {
         const event = listeners[i]
         event.apply(this, args)
 
-        if (this._events[type][i][TYPE_KEY_NAME] === 'once') {
+        if (this._events[type] && this._events[type][i] && this._events[type][i][TYPE_KEY_NAME] === 'once') {
           onceListeners.push(event)
         }
       }
