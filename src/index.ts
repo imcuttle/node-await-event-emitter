@@ -81,8 +81,12 @@ class AwaitEventEmitter {
     return this
   }
 
-  removeAllListeners() {
-    this._events = {}
+  removeAllListeners(type?: SymbolKey) {
+    if (type && this._events[type]) this._events[type] = []
+
+    if (type === undefined) {
+      this._events = {}
+    }
   }
 
   off(type: SymbolKey, nullOrFn?: Function) {
