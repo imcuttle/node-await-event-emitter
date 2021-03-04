@@ -220,3 +220,33 @@ describe('removeAllListeners', () => {
     expect(emitter.listeners('bb')).toEqual([])
   })
 })
+
+describe('emit', () => {
+  it('should allow in flight removal with removeListener', async () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn = jest.fn()
+
+    emitter.on('aa', () => {
+      emitter.removeListener('aa', testFn)
+    })
+    emitter.on('aa', testFn)
+
+    await emitter.emit('aa')
+
+    expect(testFn).not.toBeCalled()
+  })
+
+  it('should allow in flight removal with removeAllListeners', async () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn = jest.fn()
+
+    emitter.on('aa', () => {
+      emitter.removeAllListeners('aa')
+    })
+    emitter.on('aa', testFn)
+
+    await emitter.emit('aa')
+
+    expect(testFn).not.toBeCalled()
+  })
+})
