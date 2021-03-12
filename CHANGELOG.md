@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.6](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.5...v2.2.6) (2021-03-12)
+
+
+### Bug Fixes
+
+* build procedure wo files instruction ([bad5817](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/commit/bad5817247cb17b644d8fe35811920b2e12520ad))
+
 ### [2.2.5](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.4...v2.2.5) (2021-03-12)
 
 
