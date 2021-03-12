@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.4](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.3...v2.2.4) (2021-03-12)
+
+
+### Bug Fixes
+
+* build tsc again ([54730ce](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/commit/54730ce6b803895bc40db53a8090ef1a7b59e810))
+
 ### [2.2.3](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.2...v2.2.3) (2021-03-12)
 
 
