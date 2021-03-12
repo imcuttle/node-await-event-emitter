@@ -6,15 +6,14 @@
   "scripts": {
     "test": "npx jest",
     "test:watch": "npm test -- --watch",
-    "build": "tsc --outDir es && tsc --emitDeclarationOnly -d",
+    "build": "tsc && tsc --emitDeclarationOnly -d --outDir types",
     "dev": "TSC_OPTIONS=\"--watch\" npm run build",
     "build:es": "tsc $TSC_OPTIONS --outDir es --module es6",
     "build:cjs": "tsc $TSC_OPTIONS --outDir lib",
     "build:tds": "tsc $TSC_OPTIONS --emitDeclarationOnly -d",
     "clean": "rimraf types es lib",
-    "prepare": "npm run build",
     "prerelease": "npm test",
-    "postinstall": "npm run build",
+    "postinstall": "tsc",
     "release": "standard-version --no-verify"
   },
   "sideEffects": false,

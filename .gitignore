@@ -9,6 +9,5 @@ coverage/
 .dist
 .vscode
 /lib/
-/types/
 /es/
 
