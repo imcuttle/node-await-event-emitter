@@ -1,6 +1,6 @@
 {
   "name": "await-event-emitter",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Await events library like EventEmitter",
   "author": "imcuttle <imcuttle@163.com>",
   "scripts": {
@@ -75,8 +75,8 @@
   },
   "standard-version": {
     "skip": {
-      "tag": true,
-      "commit": true
+      "tag": false,
+      "commit": false
     }
   }
 }
