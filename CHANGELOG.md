@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.5](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.4...v2.2.5) (2021-03-12)
+
+
+### Bug Fixes
+
+* build procedure with commonjs module ([b4a805d](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/commit/b4a805d4fb0bdd6ee4f5fdccf8a606f4a5823e53))
+
 ### [2.2.4](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.3...v2.2.4) (2021-03-12)
 
 
