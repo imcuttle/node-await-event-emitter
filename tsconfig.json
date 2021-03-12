@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ES6",
     "target": "es2017",
     "sourceMap": false,
     "declaration": false,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "outDir": "types"
+    "outDir": "types",
+    "skipLibCheck": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "test", "__tests__"]
