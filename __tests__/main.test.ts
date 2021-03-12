@@ -10,7 +10,7 @@ function tick(func) {
   return new Promise((resolve) => {
     setTimeout(() => {
       func()
-      resolve()
+      resolve(true)
     }, 1000)
   })
 }
