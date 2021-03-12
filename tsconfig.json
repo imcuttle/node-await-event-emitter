@@ -5,9 +5,9 @@
     "sourceMap": false,
     "declaration": false,
     "moduleResolution": "node",
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "outDir": "types"
   },
-  "include": ["./src"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "test", "__tests__"]
 }
