@@ -1,6 +1,6 @@
 {
   "name": "await-event-emitter",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": "Await events library like EventEmitter",
   "author": "imcuttle <imcuttle@163.com>",
   "scripts": {
