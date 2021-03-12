@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npx jest",
     "test:watch": "npm test -- --watch",
-    "build": "npm run clean && run-p --print-label \"build:**\"",
+    "build": "npm run clean && npm run build:es && npm run build:cjs && npm run build:tds",
     "dev": "TSC_OPTIONS=\"--watch\" npm run build",
     "build:es": "tsc $TSC_OPTIONS --outDir es --module es6",
     "build:cjs": "tsc $TSC_OPTIONS --outDir lib",
