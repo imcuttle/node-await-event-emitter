@@ -20,12 +20,6 @@
   "engines": {
     "node": ">=10"
   },
-  "files": [
-    "es",
-    "types",
-    "lib",
-    "src"
-  ],
   "main": "lib",
   "types": "types",
   "license": "MIT",
