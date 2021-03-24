@@ -12,11 +12,10 @@
     "build:cjs": "tsc $TSC_OPTIONS --outDir lib",
     "build:tds": "tsc $TSC_OPTIONS --emitDeclarationOnly -d",
     "clean": "rimraf types es lib",
-    "prerelease": "npm test",
     "postinstall": "tsc",
+    "prerelease": "npm test",
     "release": "standard-version --no-verify"
   },
-  "sideEffects": false,
   "engines": {
     "node": ">=10"
   },
@@ -26,7 +25,6 @@
   "repository": {
     "url": "https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter.git"
   },
-  "module": "es",
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "ts-jest",

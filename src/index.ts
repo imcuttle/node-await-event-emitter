@@ -124,10 +124,9 @@ class AwaitEventEmitter {
           await rlt
         }
         if (listener[TYPE_KEY_NAME] === 'once') {
-          onceListeners.push(event)
+          this.removeListener(type, event)
         }
       }
-      onceListeners.forEach((event) => this.removeListener(type, event))
 
       return true
     }
