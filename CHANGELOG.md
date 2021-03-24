@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.7](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.6...v2.2.7) (2021-03-24)
+
+
+### Bug Fixes
+
+* **once:** remove once listeners immediately after they run ([c21353e](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/commit/c21353ee062beb2a6187b403df9865a861bfd264))
+
 ### [2.2.6](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.5...v2.2.6) (2021-03-12)
 
 
