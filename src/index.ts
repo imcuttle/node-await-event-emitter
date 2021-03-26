@@ -114,9 +114,8 @@ class AwaitEventEmitter {
   async emit(type: SymbolKey, ...args: unknown[]) {
     assertType(type)
 
-    const onceListeners = []
     if (this._events[type]) {
-      for (let listener of this._events[type]) {
+      for (const listener of this._events[type]) {
         if (!this._events[type].includes(listener)) continue
         const event = listener.fn
         const rlt = event.apply(this, args)
@@ -124,7 +123,10 @@ class AwaitEventEmitter {
           await rlt
         }
         if (listener[TYPE_KEY_NAME] === 'once') {
-          this.removeListener(type, event)
+          const index = this._events[type].indexOf(listener)
+          if (index > -1) {
+            this._events[type].splice(index, 1)
+          }
         }
       }
 
