@@ -115,7 +115,7 @@ class AwaitEventEmitter {
     assertType(type)
 
     if (this._events[type]) {
-      for (const listener of this._events[type]) {
+      for (const [index, listener] of this._events[type].entries()) {
         if (!this._events[type].includes(listener)) continue
         const event = listener.fn
         const rlt = event.apply(this, args)
@@ -123,10 +123,7 @@ class AwaitEventEmitter {
           await rlt
         }
         if (listener[TYPE_KEY_NAME] === 'once') {
-          const index = this._events[type].indexOf(listener)
-          if (index > -1) {
-            this._events[type].splice(index, 1)
-          }
+          delete this._events[type][index]
         }
       }
 
