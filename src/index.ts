@@ -70,7 +70,7 @@ class AwaitEventEmitter {
     return this
   }
   listeners(type: SymbolKey) {
-    return (this._events[type] || []).map((x) => x.fn)
+    return (this._events[type] || []).filter((val) => val).map((x) => x.fn)
   }
 
   once(type: SymbolKey, fn: Function) {
@@ -95,16 +95,16 @@ class AwaitEventEmitter {
   removeListener(type: SymbolKey, nullOrFn?: Function) {
     assertType(type)
 
-    const listeners = this.listeners(type)
     if (typeof nullOrFn === 'function') {
-      let index = -1
       let found = false
 
-      while ((index = listeners.indexOf(nullOrFn)) >= 0) {
-        listeners.splice(index, 1)
-        this._events[type].splice(index, 1)
-        found = true
-      }
+      this._events[type].forEach((value, index) => {
+        if (value.fn === nullOrFn) {
+          found = true
+          delete this._events[type][index]
+        }
+      })
+
       return found
     } else {
       return (this._events[type] = [])
@@ -114,15 +114,17 @@ class AwaitEventEmitter {
   async emit(type: SymbolKey, ...args: unknown[]) {
     assertType(type)
 
-    if (this._events[type]) {
-      for (const [index, listener] of this._events[type].entries()) {
-        if (!this._events[type].includes(listener)) continue
+    if (this._events[type] && this._events[type].length) {
+      for (const listener of this._events[type]) {
+        if (!this._events[type].includes(listener) || !listener) continue
         const event = listener.fn
         const rlt = event.apply(this, args)
         if (isPromise(rlt)) {
           await rlt
         }
         if (listener[TYPE_KEY_NAME] === 'once') {
+          // splice won't work, as it will affect the current loop
+          let index = this._events[type].indexOf(listener, 0)
           delete this._events[type][index]
         }
       }

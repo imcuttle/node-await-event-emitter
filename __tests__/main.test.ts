@@ -190,6 +190,52 @@ describe('await-event-emitter', () => {
   })
 })
 
+describe('once', () => {
+  it('should allow same function hooked', async () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn1 = jest.fn()
+
+    emitter.once('aa', testFn1)
+    emitter.once('aa', testFn1)
+
+    await emitter.emit('aa')
+
+    expect(testFn1).toBeCalledTimes(2)
+  })
+
+  it('should allow in flight removal with removeListener', async () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn1 = jest.fn()
+
+    emitter.once('aa', testFn1)
+    emitter.once('aa', () => {
+      emitter.removeListener('aa', testFn1)
+    })
+
+    emitter.once('aa', testFn1)
+
+    await emitter.emit('aa')
+
+    expect(testFn1).toBeCalledTimes(1)
+  })
+
+  it('should allow in flight removal with removeAllListeners', async () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn1 = jest.fn()
+
+    emitter.once('aa', testFn1)
+    emitter.once('aa', () => {
+      emitter.removeAllListeners('aa')
+    })
+
+    emitter.once('aa', testFn1)
+
+    await emitter.emit('aa')
+
+    expect(testFn1).toBeCalledTimes(1)
+  })
+})
+
 describe('removeAllListeners', () => {
   it('should remove all listeners for event', () => {
     const emitter = new AwaitEventEmitter()
@@ -248,5 +294,24 @@ describe('emit', () => {
     await emitter.emit('aa')
 
     expect(testFn).not.toBeCalled()
+  })
+
+  it('should run listeners after removing some', async () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn1 = jest.fn()
+    const testFn2 = jest.fn()
+
+    emitter.on('aa', testFn1)
+    emitter.on('aa', () => {
+      emitter.removeListener('aa', testFn1)
+    })
+    emitter.on('aa', testFn1)
+    emitter.on('aa', testFn2)
+    emitter.on('aa', testFn2)
+
+    await emitter.emit('aa')
+
+    expect(testFn1).toBeCalledTimes(1)
+    expect(testFn2).toBeCalledTimes(2)
   })
 })
