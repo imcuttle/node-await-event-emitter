@@ -4,7 +4,7 @@
  * @date: 2018/1/21
  * @description:
  */
-let EventEmitter = require('../src')
+import AwaitEventEmitter from '../src'
 
 function tick(func) {
   return new Promise((resolve) => {
@@ -17,7 +17,7 @@ function tick(func) {
 
 describe('await-event-emitter', () => {
   it('on', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     let flag = 1
     const listener = async (a, b) => {
       flag = b
@@ -31,7 +31,7 @@ describe('await-event-emitter', () => {
   })
 
   it('once', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     let flag = 1
     const listener = (a, b) => {
       flag = b
@@ -45,7 +45,7 @@ describe('await-event-emitter', () => {
   })
 
   it('prependListener', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     let flag = 1
     const listener = (a, b) => {
       flag = b
@@ -64,7 +64,7 @@ describe('await-event-emitter', () => {
   })
 
   it('sync!', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     let flag = 1
     const listener = async (a, b) => {
       flag = b
@@ -84,7 +84,7 @@ describe('await-event-emitter', () => {
   })
 
   it('removeListener', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     let flag = 1
     const listener = (a, b) => {
       flag = b
@@ -103,7 +103,7 @@ describe('await-event-emitter', () => {
   })
 
   it('prependOnceListener', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     let flag = 1
     const listener = (a, b) => {
       flag = b
@@ -116,7 +116,7 @@ describe('await-event-emitter', () => {
   })
 
   it('sync', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     let flag = 1
     emitter.on('event', (a, b) => {
       flag = b
@@ -138,7 +138,7 @@ describe('await-event-emitter', () => {
   })
 
   it('async', async () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     let flag = 1
     emitter.on('event', (a, b) => {
       flag = b
@@ -181,7 +181,7 @@ describe('await-event-emitter', () => {
   })
 
   it('once remove', async function () {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
 
     emitter.once('aa', function () {})
     emitter.once('aa', function () {})
@@ -192,7 +192,7 @@ describe('await-event-emitter', () => {
 
 describe('once', () => {
   it('should allow same function hooked', async () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     const testFn1 = jest.fn()
 
     emitter.once('aa', testFn1)
@@ -204,7 +204,7 @@ describe('once', () => {
   })
 
   it('should allow in flight removal with removeListener', async () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     const testFn1 = jest.fn()
 
     emitter.once('aa', testFn1)
@@ -220,7 +220,7 @@ describe('once', () => {
   })
 
   it('should allow in flight removal with removeAllListeners', async () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     const testFn1 = jest.fn()
 
     emitter.once('aa', testFn1)
@@ -238,7 +238,7 @@ describe('once', () => {
 
 describe('removeAllListeners', () => {
   it('should remove all listeners for event', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     const testFn1 = jest.fn()
     const testFn2 = jest.fn()
 
@@ -251,7 +251,7 @@ describe('removeAllListeners', () => {
   })
 
   it('should remove all listeners for all events', () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     const testFn1 = jest.fn()
     const testFn2 = jest.fn()
 
@@ -269,7 +269,7 @@ describe('removeAllListeners', () => {
 
 describe('emit', () => {
   it('should allow in flight removal with removeListener', async () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     const testFn = jest.fn()
 
     emitter.on('aa', () => {
@@ -283,7 +283,7 @@ describe('emit', () => {
   })
 
   it('should allow in flight removal with removeAllListeners', async () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     const testFn = jest.fn()
 
     emitter.on('aa', () => {
@@ -297,7 +297,7 @@ describe('emit', () => {
   })
 
   it('should run listeners after removing some', async () => {
-    const emitter = new EventEmitter()
+    const emitter = new AwaitEventEmitter()
     const testFn1 = jest.fn()
     const testFn2 = jest.fn()
 

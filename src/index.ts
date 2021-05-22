@@ -155,4 +155,4 @@ class AwaitEventEmitter {
   }
 }
 
-module.exports = AwaitEventEmitter
+export default AwaitEventEmitter
