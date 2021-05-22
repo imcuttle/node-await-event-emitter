@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.1](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.3.0...v2.3.1) (2021-05-22)
+
+
+### Bug Fixes
+
+* export to be compatibles with ESM ([41fdcc8](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/commit/41fdcc8964386d682226020ebd29648231c45502))
+
 ## [2.3.0](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.2.8...v2.3.0) (2021-03-28)
 
 
