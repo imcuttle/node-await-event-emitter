@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.3.2](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.3.1...v2.3.2) (2021-05-22)
+
+
+### Bug Fixes
+
+* revert to cjs export ([b2b2982](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/commit/b2b2982f838d86c271d6298f867d1c1d9433cc22))
+
 ### [2.3.1](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.3.0...v2.3.1) (2021-05-22)
 
 
