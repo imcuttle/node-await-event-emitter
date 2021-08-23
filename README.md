@@ -1,5 +1,7 @@
 # await-event-emitter
 
+**Note: node-await-event-emitter is just implements the series processing, If you need parallel case, Please use the package [tapable](https://www.npmjs.com/package/tapable) which is used by webpack.**
+
 Await events library like EventEmitter
 
 [![build status](https://img.shields.io/travis/imcuttle/node-await-event-emitter/master.svg?style=flat-square)](https://travis-ci.org/imcuttle/node-await-event-emitter)
