@@ -81,8 +81,12 @@ class AwaitEventEmitter {
     return this
   }
 
-  removeAllListeners() {
-    this._events = {}
+  removeAllListeners(type?: SymbolKey) {
+    if (type && this._events[type]) this._events[type] = []
+
+    if (type === undefined) {
+      this._events = {}
+    }
   }
 
   off(type: SymbolKey, nullOrFn?: Function) {
@@ -103,23 +107,23 @@ class AwaitEventEmitter {
       }
       return found
     } else {
-      return delete this._events[type]
+      return (this._events[type] = [])
     }
   }
 
   async emit(type: SymbolKey, ...args: unknown[]) {
     assertType(type)
-    const listeners = this.listeners(type)
 
     const onceListeners = []
-    if (listeners && listeners.length) {
-      for (let i = 0; i < listeners.length; i++) {
-        const event = listeners[i]
+    if (this._events[type]) {
+      for (let listener of this._events[type]) {
+        if (!this._events[type].includes(listener)) continue
+        const event = listener.fn
         const rlt = event.apply(this, args)
         if (isPromise(rlt)) {
           await rlt
         }
-        if (this._events[type] && this._events[type][i] && this._events[type][i][TYPE_KEY_NAME] === 'once') {
+        if (listener[TYPE_KEY_NAME] === 'once') {
           onceListeners.push(event)
         }
       }

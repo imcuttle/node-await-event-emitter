@@ -189,3 +189,64 @@ describe('await-event-emitter', () => {
     await emitter.emit('aa')
   })
 })
+
+describe('removeAllListeners', () => {
+  it('should remove all listeners for event', () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn1 = jest.fn()
+    const testFn2 = jest.fn()
+
+    emitter.on('aa', testFn1)
+    emitter.on('aa', testFn2)
+
+    emitter.removeAllListeners('aa')
+
+    expect(emitter.listeners('aa')).toEqual([])
+  })
+
+  it('should remove all listeners for all events', () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn1 = jest.fn()
+    const testFn2 = jest.fn()
+
+    emitter.on('aa', testFn1)
+    emitter.on('aa', testFn2)
+    emitter.on('bb', testFn1)
+    emitter.on('bb', testFn2)
+
+    emitter.removeAllListeners()
+
+    expect(emitter.listeners('aa')).toEqual([])
+    expect(emitter.listeners('bb')).toEqual([])
+  })
+})
+
+describe('emit', () => {
+  it('should allow in flight removal with removeListener', async () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn = jest.fn()
+
+    emitter.on('aa', () => {
+      emitter.removeListener('aa', testFn)
+    })
+    emitter.on('aa', testFn)
+
+    await emitter.emit('aa')
+
+    expect(testFn).not.toBeCalled()
+  })
+
+  it('should allow in flight removal with removeAllListeners', async () => {
+    const emitter = new AwaitEventEmitter()
+    const testFn = jest.fn()
+
+    emitter.on('aa', () => {
+      emitter.removeAllListeners('aa')
+    })
+    emitter.on('aa', testFn)
+
+    await emitter.emit('aa')
+
+    expect(testFn).not.toBeCalled()
+  })
+})
