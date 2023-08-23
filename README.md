@@ -1,109 +1,91 @@
-# await-event-emitter
+# serial-await-event-emitter
 
-Await events library like EventEmitter
-
-[![build status](https://img.shields.io/travis/imcuttle/node-await-event-emitter/master.svg?style=flat-square)](https://travis-ci.org/imcuttle/node-await-event-emitter)
-[![Test coverage](https://img.shields.io/codecov/c/github/imcuttle/node-await-event-emitter.svg?style=flat-square)](https://codecov.io/github/imcuttle/node-await-event-emitter?branch=master)
-[![NPM version](https://img.shields.io/npm/v/await-event-emitter.svg?style=flat-square)](https://www.npmjs.com/package/await-event-emitter)
-[![NPM Downloads](https://img.shields.io/npm/dm/await-event-emitter.svg?style=flat-square&maxAge=43200)](https://www.npmjs.com/package/await-event-emitter)
-
-## Why?
-
-The concept of Webpack plugin has lots of lifecycle hooks, they implement this via EventEmitter.
-In the primitive [events](https://nodejs.org/dist/latest/docs/api/events.html) module on nodejs, the usage as follows
-
-```javascript
-const EventEmitter = require('events')
-const emitter = new EventEmitter()
-
-emitter
-  .on('event', () => {
-    // do something *synchronously*
-  })
-  .emit('event', '...arguments')
-```
-
-The listener must be **synchronous**, that is way i wrote it.  
-And await-event-emitter support synchronous emitter magically :smile:
+Replicate node EventEmitter, but with await for each listener.
 
 ## Installation
 
 ```bash
-npm install --save await-event-emitter
+npm i serial-await-event-emitter
 ```
 
 ## Usage
 
-```javascript
-const AwaitEventEmitter = require('await-event-emitter').default
+```js
+import { SerialAwaitEventEmitter } from 'serial-await-event-emitter';
 
-const emitter = new AwaitEventEmitter()
-const tick = () =>
+const emitter = new SerialAwaitEventEmitter()
+const test = () =>
   new Promise((resolve) => {
     setTimeout(() => {
-      console.log('tick')
+      console.log('test')
       resolve()
     }, 1000)
   })
 
 emitter.on('event', async () => {
-  // wait to print
-  await tick()
+  // will wait 1000ms, then log
+  await test()
 })
 
 async function run() {
-  // NOTE: it's important to `await` the reset process
+  // emit is now run with await
   await emitter.emit('event', '...arguments')
   await emitter.emit('event', 'again')
 
-  // support emit it synchronously
+  // also supports the classic sync method
   emitter.emitSync('event', 'again')
 }
 
 run()
 ```
 
-## API
+One novelty feature is that adding, or prepending events while running is supported
 
-### Class `AwaitEventEmitter`
+```js
+// example-prepend.ts
+import { SerialAwaitEventEmitter } from 'serial-await-event-emitter';
 
-- `addListener(event, listener)` : AwaitEventEmitter  
-  alias: `on`
-- `once(event, listener)`
-- `prependListener(event, listener)` : AwaitEventEmitter  
-  alias: `prepend`
-- `prependOnceListener(event, listener)` : AwaitEventEmitter  
-  alias: `prependOnce`
-- `removeListener(event, listener)` : AwaitEventEmitter  
-  alias: `off`
-- `listeners(event)` : []
-- `emit(event, ...args)` : Promise.resolve(boolean)  
-  emit listeners asynchronously, we recommended await it resolved the result
-- `emitSync(event, ...args)` : boolean
-  emit listeners synchronously
+const emitter = new SerialAwaitEventEmitter()
 
-## Test
+emitter.on('aa', function initial() {});
+emitter.prependOnce('aa', function once() { emitter.prepend('aa', function prepended() {})});
+emitter.on('aa', function add() { emitter.once('aa', function addedOnce() {})});
+emitter.on('aa', function final() {});
 
-```bash
-npm test
+await emitter.emit('aa');
+// will run: once, prepended, initial, add, final, addedOnce
+
+emitter.listeners('aa');
+// [prepended, initial, add, final]
+// once listeners are removed after running
+
+await emitter.emit('aa');
+// this time will run: prepended, initial, add, final, addedOnce
+// add method adds addedOnce each time is run
+// BE AWARE. prepending using `on` will result in an infinite listeners being added, and an infinite loop for emit.
 ```
 
-## Contributing
+```js
+// example-remove.ts
+import { SerialAwaitEventEmitter } from 'serial-await-event-emitter';
 
-- Fork it!
-- Create your new branch:  
-  `git checkout -b feature-new` or `git checkout -b fix-which-bug`
-- Start your magic work now
-- Make sure npm test passes
-- Commit your changes:  
-  `git commit -am 'feat: some description (close #123)'` or `git commit -am 'fix: some description (fix #123)'`
-- Push to the branch: `git push`
-- Submit a pull request :)
+const emitter = new SerialAwaitEventEmitter()
+const test1 = () => {};
+const test2 = () => {};
 
-## Authors
+emitter.on('bb', test1);
+emitter.on('bb', () => {emitter.off('bb', test2)});
+emitter.on('bb', test2);
 
-This library is written and maintained by imcuttle, <a href="mailto:imcuttle@163.com">imcuttle@163.com</a>.
+await emitter.emit('bb');
+// will run: test1, annonymous
+
+emitter.listeners('bb');
+// [test1, annonymous]
+
+
+```
 
 ## License
 
-MIT - [imcuttle](https://github.com/imcuttle) 🐟
+MIT
