@@ -4,39 +4,42 @@
  */
 
 const isPromise = require('is-promise')
-const TYPE_KEY_NAME =
-  typeof Symbol === 'function' ? Symbol.for('--[[await-event-emitter]]--') : '--[[await-event-emitter]]--'
 
-function assertType(type) {
+function assertType(type: any) {
   if (typeof type !== 'string' && typeof type !== 'symbol') {
     throw new TypeError('type is not type of string or symbol!')
   }
 }
 
-type SymbolKey = string | any
+type SymbolKey = string | number
 
-function assertFn(fn) {
+interface Listener {
+  type: string
+  fn: Function
+}
+
+function assertFn(fn: Function) {
   if (typeof fn !== 'function') {
     throw new TypeError('fn is not type of Function!')
   }
 }
 
-function alwaysListener(fn) {
+function alwaysListener(fn: Function): Listener {
   return {
-    [TYPE_KEY_NAME]: 'always',
+    type: 'always',
     fn
   }
 }
 
-function onceListener(fn) {
+function onceListener(fn: Function): Listener {
   return {
-    [TYPE_KEY_NAME]: 'once',
+    type: 'once',
     fn
   }
 }
 
 class AwaitEventEmitter {
-  _events: Record<any | SymbolKey, Array<{ fn: Function }>> = {}
+  _events: Record<SymbolKey, Array<Listener>> = {}
 
   addListener(type: SymbolKey, fn: Function) {
     return this.on(type, fn)
@@ -122,7 +125,7 @@ class AwaitEventEmitter {
         if (isPromise(rlt)) {
           await rlt
         }
-        if (listener[TYPE_KEY_NAME] === 'once') {
+        if (listener.type === 'once') {
           // splice won't work, as it will affect the current loop
           let index = this._events[type].indexOf(listener, 0)
           delete this._events[type][index]
@@ -136,18 +139,17 @@ class AwaitEventEmitter {
 
   emitSync(type: SymbolKey, ...args: unknown[]) {
     assertType(type)
-    const listeners = this.listeners(type)
-    const onceListeners = []
-    if (listeners && listeners.length) {
-      for (let i = 0; i < listeners.length; i++) {
-        const event = listeners[i]
+    if (this._events[type] && this._events[type].length) {
+      for (const listener of this._events[type]) {
+        const event = listener.fn;
         event.apply(this, args)
 
-        if (this._events[type] && this._events[type][i] && this._events[type][i][TYPE_KEY_NAME] === 'once') {
-          onceListeners.push(event)
+        if (listener.type === 'once') {
+          // splice won't work, as it will affect the current loop
+          let index = this._events[type].indexOf(listener, 0)
+          delete this._events[type][index]
         }
       }
-      onceListeners.forEach((event) => this.removeListener(type, event))
 
       return true
     }

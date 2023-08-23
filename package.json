@@ -3,72 +3,79 @@
   "version": "2.3.2",
   "description": "Await events library like EventEmitter",
   "author": "imcuttle <imcuttle@163.com>",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "npx jest",
-    "test:watch": "npm test -- --watch",
-    "build": "tsc && tsc --emitDeclarationOnly -d --outDir types",
-    "dev": "TSC_OPTIONS=\"--watch\" npm run build",
-    "build:es": "tsc $TSC_OPTIONS --outDir es --module es6",
-    "build:cjs": "tsc $TSC_OPTIONS --outDir lib",
-    "build:tds": "tsc $TSC_OPTIONS --emitDeclarationOnly -d",
-    "clean": "rimraf types es lib",
-    "postinstall": "tsc",
-    "prerelease": "npm test",
-    "release": "standard-version --no-verify"
+    "prebuild": "rimraf dist",
+    "build": "tsc --project tsconfig.build.json",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "prepare": "husky install",
+    "prepublishOnly": "npm run build",
+    "prerelease": "npm run test:cov",
+    "release": "standard-version --no-verify",
+    "release-try": "npm run release -- --dry-run"
   },
   "engines": {
     "node": ">=10"
   },
-  "main": "lib",
-  "types": "types",
   "license": "MIT",
   "repository": {
     "url": "https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter.git"
   },
-  "jest": {
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest",
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ],
-    "testMatch": [
-      "**/__test{s,}__/*.(spec|test).{t,j}s{x,}"
-    ]
+  "dependencies": {
+    "is-promise": "4.0.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "@golevelup/ts-jest": "^0.3.7",
+    "@types/jest": "28.1.8",
+    "@types/node": "14.14.31",
+    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^5.1.3",
+    "jest": "28.1.3",
+    "prettier": "^2.3.2",
+    "source-map-support": "^0.5.21",
+    "standard-version": "^9.5.0",
+    "ts-jest": "28.0.8",
+    "ts-loader": "^9.2.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.0.0",
+    "rimraf": "^5.0.1"
   },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
   },
-  "devDependencies": {
-    "@commitlint/cli": "12.0.1",
-    "@commitlint/config-conventional": "12.0.1",
-    "@types/jest": "26.0.20",
-    "@types/node": "10.17.27",
-    "husky": "5.1.3",
-    "jest": "26.6.3",
-    "npm-run-all": "4.1.5",
-    "prettier": "2.1.2",
-    "pretty-quick": "3.1.0",
-    "rimraf": "3.0.2",
-    "standard-version": "9.1.1",
-    "ts-jest": "26.4.4",
-    "typescript": "^4.0.5"
-  },
-  "dependencies": {
-    "is-promise": "4.0.0"
-  },
   "standard-version": {
     "skip": {
-      "tag": false,
-      "commit": false
+      "tag": false
     }
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   }
 }

@@ -1,12 +1,7 @@
-/**
- * @file: await-event-emitter.test.js
- * @author: Cuttle Cong
- * @date: 2018/1/21
- * @description:
- */
-import AwaitEventEmitter from '../src'
 
-function tick(func) {
+import AwaitEventEmitter from './index'
+
+function tick(func: Function) {
   return new Promise((resolve) => {
     setTimeout(() => {
       func()
@@ -19,7 +14,7 @@ describe('await-event-emitter', () => {
   it('on', () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    const listener = async (a, b) => {
+    const listener = async (a: any, b: any) => {
       flag = b
     }
     emitter.on('event', listener)
@@ -33,7 +28,7 @@ describe('await-event-emitter', () => {
   it('once', () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    const listener = (a, b) => {
+    const listener = (a: any, b: any) => {
       flag = b
     }
     emitter.once('event', listener)
@@ -47,10 +42,10 @@ describe('await-event-emitter', () => {
   it('prependListener', () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    const listener = (a, b) => {
+    const listener = (a: any, b: any) => {
       flag = b
     }
-    emitter.addListener('event', (a, b) => {
+    emitter.addListener('event', (a: any, b: any) => {
       flag = b + 1
     })
     emitter.prependListener('event', listener)
@@ -66,10 +61,10 @@ describe('await-event-emitter', () => {
   it('sync!', () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    const listener = async (a, b) => {
+    const listener = async (a: any, b: any) => {
       flag = b
     }
-    emitter.addListener('event', async (a, b) => {
+    emitter.addListener('event', async (a: any, b: any) => {
       flag = b + 1
     })
     emitter.prependListener('event', listener)
@@ -86,7 +81,7 @@ describe('await-event-emitter', () => {
   it('removeListener', () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    const listener = (a, b) => {
+    const listener = (a: any, b: any) => {
       flag = b
     }
     emitter
@@ -105,7 +100,7 @@ describe('await-event-emitter', () => {
   it('prependOnceListener', () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    const listener = (a, b) => {
+    const listener = (a: any, b: any) => {
       flag = b
     }
     emitter.prependOnceListener('event', () => (flag = 5)).prependListener('event', listener)
@@ -118,19 +113,19 @@ describe('await-event-emitter', () => {
   it('sync', () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    emitter.on('event', (a, b) => {
+    emitter.on('event', (a: any, b: any) => {
       flag = b
     })
-    emitter.on('event', (a, b) => {
+    emitter.on('event', (a: any, b: any) => {
       flag = b + 1
     })
     emitter.emit('event', 2, 4)
     expect(flag).toEqual(5)
 
-    emitter.on('event-a', (a, b) => {
+    emitter.on('event-a', (a: any, b: any) => {
       flag = b
     })
-    emitter.on('event-a', (a, b) => {
+    emitter.on('event-a', (a: any, b: any) => {
       tick(() => (flag = b + 1))
     })
     emitter.emit('event-a', 2, 4)
@@ -140,40 +135,40 @@ describe('await-event-emitter', () => {
   it('async', async () => {
     const emitter = new AwaitEventEmitter()
     let flag = 1
-    emitter.on('event', (a, b) => {
+    emitter.on('event', (a: any, b: any) => {
       flag = b
     })
-    emitter.on('event', (a, b) => {
+    emitter.on('event', (a: any, b: any) => {
       return tick(() => (flag = b + 1))
     })
     await emitter.emit('event', 2, 4)
     expect(flag).toEqual(5)
 
     emitter.removeListener('event')
-    emitter.on('event', (a, b) => {
+    emitter.on('event', (a: any, b: any) => {
       flag = b
     })
-    emitter.on('event', async (a, b) => {
+    emitter.on('event', async (a: any, b: any) => {
       return tick(() => (flag = b + 1))
     })
     await emitter.emit('event', 2, 4)
     expect(flag).toEqual(5)
 
     emitter.removeListener('event')
-    emitter.on('event', (a, b) => {
+    emitter.on('event', (a: any, b: any) => {
       flag = b
     })
-    emitter.on('event', async (a, b) => {
+    emitter.on('event', async (a: any, b: any) => {
       await tick(() => (flag = b + 1))
     })
     await emitter.emit('event', 2, 4)
     expect(flag).toEqual(5)
 
     emitter.removeListener('event')
-    emitter.on('event', (a, b) => {
+    emitter.on('event', (a: any, b: any) => {
       flag = b
     })
-    emitter.on('event', async (a, b) => {
+    emitter.on('event', async (a: any, b: any) => {
       tick(() => (flag = b + 1))
     })
     await emitter.emit('event', 2, 4)

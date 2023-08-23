@@ -1,0 +1,17 @@
+test
+src
+tsconfig.json
+.gitattributes
+.nycrc
+.husky
+.versionrc.js
+.nyc_output
+.idea
+.nvmrc
+.editorconfig
+.gitkeep
+*.map
+tsconfig.*
+coverage
+.eslintrc.js
+.prettierrc
