@@ -20,12 +20,16 @@
     "release-try": "npm run release -- --dry-run"
   },
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "license": "MIT",
-  "repository": {
-    "url": "https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter.git"
-  },
+  "keywords": [
+    "node",
+    "await",
+    "event",
+    "emitter",
+    "event-emitter"
+  ],
   "dependencies": {
     "is-promise": "4.0.0"
   },
