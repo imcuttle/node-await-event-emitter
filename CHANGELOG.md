@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://gitlab.rankingcoach.com:222/d.stefancu/await-event-emitter/compare/v2.3.2...v3.0.0) (2023-08-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* update package name and readme
+
+### Features
+
+* add prepended functions to currently running loop ([0e024fc](https://gitlab.rankingcoach.com:222/d.stefancu/await-event-emitter/commit/0e024fcc92fa48eb926fbd71e2a5c080e8e2ff78))
+
+
+### Bug Fixes
+
+* remove hardcoded types ([126c604](https://gitlab.rankingcoach.com:222/d.stefancu/await-event-emitter/commit/126c604d750914e3e2a4e4cfd1d38f7b611ec835))
+* update package name and readme ([c681943](https://gitlab.rankingcoach.com:222/d.stefancu/await-event-emitter/commit/c681943f91a7ac21d95d3998960306ae02e30a5a))
+
 ### [2.3.2](https://gitlab.rankingcoach.com/d.stefancu/await-event-emitter/compare/v2.3.1...v2.3.2) (2021-05-22)
 
 
